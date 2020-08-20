@@ -7,12 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CustomerRepository extends CrudRepository<Customer, String>  {
+public interface CustomerRepository extends CrudRepository<Customer, String> {
 
+	Optional<Customer> findByNameAndAddressCountry(String name, String country);
 
-    Optional<Customer> findByNameAndAddressCountry(String name, String country);
+	Optional<Customer> findByAddressCountry(String country);
 
-    Optional<Customer> findByAddressCountry(String country);
-
-
+	Customer findByAccountsNumber(String accountNumber);
 }

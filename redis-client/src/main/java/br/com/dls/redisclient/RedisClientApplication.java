@@ -11,5 +11,4 @@ public class RedisClientApplication {
 		SpringApplication.run(RedisClientApplication.class, args);
 	}
 
-
 }

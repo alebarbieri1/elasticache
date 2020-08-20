@@ -1,24 +1,10 @@
-version: "3.7"
-
+version: '2.1'
 services:
-  aws-config-server:
-    container_name: "${LOCALSTACK_DOCKER_NAME-aws-config-server}"
-    image: diegol/aws-config-server:0.0.1-SNAPSHOT
-    expose:
-      - "8089"
-
-  redis-client:
-    container_name: "${LOCALSTACK_DOCKER_NAME-aws-redis-client}"
-    image: diegol/redis-client:0.0.1-SNAPSHOT
-    environment:
-      - CONFIG_URL=aws-config-server
+  redis:
+    image: "redis:6.0.5-alpine"
     ports:
-      - "8080:8080"
-    depends_on:
-      - aws-config-server
-
-
-
-
-docker run -p 8089:8089 --network resources_default --name aws-config-server diegols/aws-config-server:0.0.1-SNAPSHOT
-docker run -p 8080:8080 --network resources_default -e CONFIG_URL='http://aws-config-server:8089' -e SM_HOST='http://localstack:4566' diegols/app-redis:0.0.1-SNAPSHOT
+      - "6379:6379"
+  redisinsight:
+    image: "redislabs/redisinsight"
+    ports:
+      - "8001:8001"
