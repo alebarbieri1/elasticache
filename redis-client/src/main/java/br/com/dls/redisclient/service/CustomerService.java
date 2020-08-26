@@ -24,6 +24,10 @@ public class CustomerService {
 		return (Customer) customerRepository.save(customer);
 	}
 
+	public Customer update(Customer customer) {
+		return (Customer) customerRepository.save(customer);
+	}
+
 	public Customer find(String id, String name, String country) {
 
 		Optional<Customer> optCustomer = customerRepository.findById(id);

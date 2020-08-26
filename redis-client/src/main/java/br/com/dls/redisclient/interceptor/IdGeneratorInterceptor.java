@@ -9,24 +9,24 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Reference;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Aspect
-@Configuration
+@Component
 public class IdGeneratorInterceptor {
 
 	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
 
-	@Before("execution(* org.springframework.data.repository.CrudRepository+.save(..)) && args(object) "
-			+ "|| execution(* org.springframework.data.repository.CrudRepository+.saveAll(..)) && args(object)")
+	@Before("execution(* org.springframework.data.keyvalue.core.KeyValueOperations+.insert(..)) && args(object) ")
 	public void before(JoinPoint joinPoint, Object object) throws Exception {
+		log.info("before insert - generating IDs");
 		long startTime = System.currentTimeMillis();
 		List<Object> objects = extractNestedEntitiesfromObjectToList(object, new ArrayList<>());
 		for (Object obj : objects) {
