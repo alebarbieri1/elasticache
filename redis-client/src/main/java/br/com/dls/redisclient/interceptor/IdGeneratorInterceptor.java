@@ -67,12 +67,7 @@ public class IdGeneratorInterceptor {
 				field.setAccessible(true);
 				Object nestedObject = field.get(object);
 				if (nestedObject != null && !isJavaNativeObject(nestedObject)) {
-					if (isCollection(object)) {
-						List<Object> nestedObjects = (List<Object>) field.get(object);
-						nestedObjects.forEach(obj -> extractNestedEntitiesfromObjectToList(obj, entities));
-					} else {
-						extractNestedEntitiesfromObjectToList(nestedObject, entities);
-					}
+					extractNestedEntitiesfromObjectToList(nestedObject, entities);
 				}
 			} catch (Exception e) {
 				log.error(e.getMessage(), e);

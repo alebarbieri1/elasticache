@@ -7,7 +7,7 @@ import org.springframework.data.redis.core.index.Indexed;
 import lombok.Data;
 
 @Data
-@RedisHash("account")
+@RedisHash(value = "account", timeToLive = 10000)
 public class Account {
 	@Id
 	private Long id;

@@ -12,7 +12,7 @@ import lombok.Data;
 
 @Data
 @RedisMainHash
-@RedisHash("customer")
+@RedisHash(value = "customer")
 public class Customer {
 
 	@Id
@@ -22,5 +22,4 @@ public class Customer {
 	@Reference
 	private List<Account> accounts;
 	private Address address;
-
 }

@@ -1,5 +1,6 @@
 package br.com.dls.redisclient.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -28,14 +29,17 @@ public class CustomerService {
 		return (Customer) customerRepository.save(customer);
 	}
 
-	public Customer find(String id, String name, String country) {
-
+	public Customer find(String id) {
 		Optional<Customer> optCustomer = customerRepository.findById(id);
-		if (optCustomer.isPresent())
+		if (optCustomer.isPresent()) {
 			return optCustomer.get();
-		else
-			return customerRepository.findByNameAndAddressCountry(name, country)
-					.orElseThrow(() -> new CustomerNotFoundException(id));
+		}
+		throw new CustomerNotFoundException(id);
+	}
+
+	public List<Customer> findByName(String name) {
+		List<Customer> customers = customerRepository.findByName(name);
+		return customers;
 	}
 
 	public Customer findByAccountNumber(String accountNumber) {

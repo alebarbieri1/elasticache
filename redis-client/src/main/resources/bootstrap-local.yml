@@ -6,6 +6,7 @@ spring:
     ssl: false
     password: fake
     database: 10
+    time-to-live-in-hours: 24
 
 aws:
   secretsmanager:

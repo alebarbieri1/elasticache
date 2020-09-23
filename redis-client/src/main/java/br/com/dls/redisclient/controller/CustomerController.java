@@ -1,5 +1,7 @@
 package br.com.dls.redisclient.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Async;
@@ -57,8 +59,13 @@ public class CustomerController {
 	}
 
 	@GetMapping("/{id}")
-	public Customer findById(@PathVariable("id") String id, @RequestParam String name, @RequestParam String country) {
-		return customerService.find(id, name, country);
+	public Customer findById(@PathVariable("id") String id) {
+		return customerService.find(id);
+	}
+
+	@GetMapping
+	public List<Customer> findByName(@RequestParam("name") String name) {
+		return customerService.findByName(name);
 	}
 
 	@GetMapping("/account/{accountNumber}")
